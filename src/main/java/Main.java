@@ -3,12 +3,37 @@ import centro.persistence.CentroDaoImpl;
 import centro.repository.CentroRepositoryImpl;
 import centro.service.CentroServiceImpl;
 import centro.view.CentroFrame;
+import conductor.view.DriverMainFrame;
 
 import javax.swing.*;
 import java.sql.SQLException;
 
 public class Main {
     public static void main(String[] args) throws SQLException {
+        // Initialize in background
+        SwingUtilities.invokeLater(() -> {
+            try {
+                // Simulate loading
+                Thread.sleep(1500);
+                
+                // Initialize look and feel
+                UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+                
+                // Create and show main frame
+                DriverMainFrame mainFrame = new DriverMainFrame();
+                
+                // Show main frame
+                mainFrame.setVisible(true);
+                
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null,
+                    "Error al iniciar la aplicación:\n" + e.getMessage(),
+                    "Error de Inicialización",
+                    JOptionPane.ERROR_MESSAGE);
+                e.printStackTrace();
+                System.exit(1);
+            }
+        });
 //        try {
 //
 //            CentroDao centroDao = new CentroDaoImpl();
