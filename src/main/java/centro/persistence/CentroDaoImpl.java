@@ -22,18 +22,15 @@ public class CentroDaoImpl implements CentroDao {
     public List<Centro> listarCentros() throws InvalidCentroDataException, SQLException {
         String sql = "SELECT * from obtener_fichas_de_centros()";
         List<Centro> centros = new ArrayList<>();
-        try {
-            Connection conn = this.getConnection();
-            PreparedStatement statement = conn.prepareStatement(sql);
-            ResultSet resultSet = statement.executeQuery();
+        try (
+                Connection conn = this.getConnection();
+                PreparedStatement statement = conn.prepareStatement(sql);
+                ResultSet resultSet = statement.executeQuery();
+        ) {
             while (resultSet.next()) {
                 Centro centro = mapResult(resultSet);
                 centros.add(centro);
             }
-
-
-        } catch (Exception e) {
-            throw new RuntimeException(e);
         }
         return centros;
 
@@ -54,6 +51,24 @@ public class CentroDaoImpl implements CentroDao {
             }
         }
         throw new CentroNotFoundException("El centro con %s no fue encontrado".formatted(codigo));
+    }
+
+    @Override
+    public Centro obtenerCentroPorId(Long id) throws SQLException, CentroNotFoundException {
+        String sql = "SELECT * FROM centro WHERE id_centro = ?";
+
+        try (
+                Connection conn = this.getConnection();
+                PreparedStatement pstm = conn.prepareStatement(sql);
+        ) {
+            pstm.setLong(1, id);
+            try(ResultSet resultSet = pstm.executeQuery()){
+                if(resultSet.next()){
+                    return this.mapResult(resultSet);
+                }
+            }
+        }
+        throw new CentroNotFoundException("El centro con %s no fue encontrado".formatted(id));
     }
 
     @Override
@@ -88,7 +103,7 @@ public class CentroDaoImpl implements CentroDao {
 
     @Override
     public void eliminar(Long id) throws CentroNotFoundException, SQLException {
-        String sql = "DELETE FROM centro WHERE id_centro=?,?";
+        String sql = "DELETE FROM centro WHERE id_centro=?";
         try (
                 Connection conn = this.getConnection();
                 PreparedStatement pstm = conn.prepareStatement(sql);
@@ -150,6 +165,7 @@ public class CentroDaoImpl implements CentroDao {
         }
         return false;
     }
+
 
     private Centro mapResult(ResultSet resultSet) throws SQLException {
         return new Centro(

@@ -8,11 +8,11 @@ import centro.repository.CentroRepository;
 import java.sql.SQLException;
 import java.util.List;
 
-public class CentroServiceImpl implements  CentroService {
+public class CentroServiceImpl implements CentroService {
 
     private final CentroRepository centroRepository;
 
-    public CentroServiceImpl(CentroRepository centroRepository){
+    public CentroServiceImpl(CentroRepository centroRepository) {
         this.centroRepository = centroRepository;
     }
 
@@ -46,9 +46,14 @@ public class CentroServiceImpl implements  CentroService {
 
     @Override
     public boolean existePorId(Long id) throws SQLException, CentroNotFoundException {
-         if(!this.centroRepository.existePorId(id)){
-             throw new CentroNotFoundException("El centro con %s no fue encontrado".formatted(id));
-         }
-         return true;
+        if (!this.centroRepository.existePorId(id)) {
+            throw new CentroNotFoundException("El centro con %s no fue encontrado".formatted(id));
+        }
+        return true;
+    }
+
+    public Centro buscarCentroPorId(Long id) throws SQLException, CentroNotFoundException {
+        this.existePorId(id);
+        return this.centroRepository.obtenerCentroPorId(id);
     }
 }

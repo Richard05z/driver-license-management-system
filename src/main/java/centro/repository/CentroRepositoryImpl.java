@@ -47,4 +47,9 @@ public class CentroRepositoryImpl implements CentroRepository {
         return this.centroDao.existePorId(id);
     }
 
+    @Override
+    public Centro obtenerCentroPorId(Long id) throws SQLException, CentroNotFoundException {
+        return this.centroDao.obtenerCentroPorId(id);
+    }
+
 }
