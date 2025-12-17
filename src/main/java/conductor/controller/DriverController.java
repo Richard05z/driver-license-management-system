@@ -35,7 +35,7 @@ public class DriverController {
         return DriverMapper.toDriverResponseDto(this.driverService.getById(id));
     }
 
-    public DriverResponseDto getDriverByIdDocument(String idDocument) throws InvalidDriverDataException, SQLException, DriverNotFoundException {
+    public DriverResponseDto getDriverResponseByIdDocument(String idDocument) throws InvalidDriverDataException, SQLException, DriverNotFoundException {
         validateTextNotNull(idDocument, "Identity document");
         return DriverMapper.toDriverResponseDto(this.driverService.getByIdDocument(idDocument));
     }
