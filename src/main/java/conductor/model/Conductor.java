@@ -5,9 +5,9 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class Driver {
+public class Conductor {
 
-    private Integer id;
+    private Long id;
     private String firstName;
     private String lastName;
     private String idDocument;
@@ -17,7 +17,7 @@ public class Driver {
     private String email;
     private String licenseStatus;
 
-    public Driver(String firstName, String lastName, String idDocument, String birthDate, String address, String phone, String email, String licenseStatus) {
+    public Conductor(String firstName, String lastName, String idDocument, String birthDate, String address, String phone, String email, String licenseStatus) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.idDocument = idDocument;

@@ -7,7 +7,7 @@ import java.awt.event.KeyEvent;
 
 import conductor.controller.DriverController;
 import conductor.dto.DriverResponseDto;
-import conductor.model.Driver;
+import conductor.model.Conductor;
 
 public class DriverForm extends JPanel {
     private JTextField txtId;
@@ -150,7 +150,7 @@ public class DriverForm extends JPanel {
         }
         
         try {
-            Driver driver = new Driver(
+            Conductor conductor = new Conductor(
                 txtFirstName.getText().trim(),
                 txtLastName.getText().trim(),
                 txtIdDocument.getText().trim(),
@@ -163,12 +163,12 @@ public class DriverForm extends JPanel {
             
             // If there's ID, it's an update
             if (!txtId.getText().isEmpty()) {
-                driver.setId(Integer.parseInt(txtId.getText()));
-                driverController.updateDriver(driver);
+                conductor.setId(Integer.parseInt(txtId.getText()));
+                driverController.updateDriver(conductor);
                 JOptionPane.showMessageDialog(this, "Conductor actualizado exitosamente", 
                     "Éxito", JOptionPane.INFORMATION_MESSAGE);
             } else {
-                driverController.addDriver(driver);
+                driverController.addDriver(conductor);
                 JOptionPane.showMessageDialog(this, "Conductor agregado exitosamente", 
                     "Éxito", JOptionPane.INFORMATION_MESSAGE);
             }

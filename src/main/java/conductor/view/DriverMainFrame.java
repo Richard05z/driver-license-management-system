@@ -5,9 +5,9 @@ import java.awt.*;
 import java.awt.event.*;
 
 import conductor.controller.DriverController;
-import conductor.persistence.DriverDao;
-import conductor.repository.DriverRepository;
-import conductor.service.DriverService;
+import conductor.persistence.ConductorDao;
+import conductor.repository.ConductorRepository;
+import conductor.service.ConductorService;
 
 public class DriverMainFrame extends JFrame {
     private DriverController driverController;
@@ -24,9 +24,9 @@ public class DriverMainFrame extends JFrame {
     private void initComponents() {
         try {
             // Initialize the full chain: DAO → Repository → Service → Controller
-            DriverDao driverDao = new DriverDao();
-            DriverRepository driverRepository = new DriverRepository(driverDao);
-            DriverService driverService = new DriverService(driverRepository);
+            ConductorDao driverDao = new ConductorDao();
+            ConductorRepository driverRepository = new ConductorRepository(driverDao);
+            ConductorService driverService = new ConductorService(driverRepository);
             driverController = new DriverController(driverService);
             
             setTitle("Gestión de Conductores - CRUD Completo");
