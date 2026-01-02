@@ -25,13 +25,11 @@ public class EntidadController {
     }
 
     public List<Entidad> obtenerEntidades() throws InvalidEntidadDataException, SQLException {
-        return this.entidadService.listarEntidades().stream()
-                .toList();
+        return this.entidadService.listarEntidades();
     }
 
     public List<Entidad> obtenerEntidadesPorCentroId(Long centroId) throws InvalidEntidadDataException, SQLException, EntidadNotFoundException, CentroNotFoundException {
-        return this.entidadService.listarEntidadesPorCentroId(centroId).stream()
-                .toList();
+        return this.entidadService.listarEntidadesPorCentroId(centroId);
     }
 
     public void eliminarEntidad(Long id) throws InvalidEntidadDataException, SQLException, EntidadNotFoundException {
