@@ -21,4 +21,5 @@ public interface CentroService {
 
     boolean existePorId(Long id) throws SQLException, CentroNotFoundException;
 
+    Centro buscarCentroPorId(Long id)throws SQLException, CentroNotFoundException;
 }

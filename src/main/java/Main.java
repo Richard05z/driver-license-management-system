@@ -1,9 +1,20 @@
 import centro.controller.CentroController;
+import centro.persistence.CentroDao;
 import centro.persistence.CentroDaoImpl;
+import centro.repository.CentroRepository;
 import centro.repository.CentroRepositoryImpl;
+import centro.service.CentroService;
 import centro.service.CentroServiceImpl;
 import centro.view.CentroFrame;
 import conductor.view.DriverMainFrame;
+import entidad.controller.EntidadController;
+import entidad.persistence.EntidadDao;
+import entidad.persistence.EntidadDaoImpl;
+import entidad.repository.EntidadRepository;
+import entidad.repository.EntidadRepositoryImpl;
+import entidad.service.EntidadService;
+import entidad.service.EntidadServiceImpl;
+import entidad.view.EntidadView;
 
 import javax.swing.*;
 import java.sql.SQLException;
@@ -15,16 +26,16 @@ public class Main {
             try {
                 // Simulate loading
                 Thread.sleep(1500);
-                
+
                 // Initialize look and feel
                 UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-                
+
                 // Create and show main frame
                 DriverMainFrame mainFrame = new DriverMainFrame();
-                
+
                 // Show main frame
                 mainFrame.setVisible(true);
-                
+
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null,
                     "Error al iniciar la aplicación:\n" + e.getMessage(),
@@ -34,6 +45,7 @@ public class Main {
                 System.exit(1);
             }
         });
+        // TODO: ESTO ES SOLO PARA PRUEBAS CORREGIR POSTERIORMENTE CON LLAMADAS A VISTAS OFICIALES DE LA APP
 //        try {
 //
 //            CentroDao centroDao = new CentroDaoImpl();
@@ -42,6 +54,12 @@ public class Main {
 //            CentroController centroController = new CentroController(centroService);
 //            CentroView view = new CentroView(centroController);
 //            view.showMenu();
+//        EntidadDao entidadDao = new EntidadDaoImpl();
+//        EntidadRepository entidadRepository = new EntidadRepositoryImpl(entidadDao);
+//        EntidadService entidadService = new EntidadServiceImpl(entidadRepository,centroService);
+//        EntidadController entidadController = new EntidadController(entidadService);
+//        EntidadView view = new EntidadView(entidadController);
+//        view.showMenu();
 //        } catch (SQLException e) {
 //            System.out.println(e.getMessage());
 //        }
