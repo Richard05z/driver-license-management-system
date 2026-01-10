@@ -12,6 +12,7 @@ import centro.service.CentroServiceImpl;
 import centro.view.CentroMainFrame;
 import entidad.view.EntidadMainFrame;
 import examen.view.ExamMainFrame;
+import licencia.view.LicenseMainFrame;
 import conductor.view.DriverMainFrame;
 
 public class MainApplicationFrame extends JFrame {
@@ -290,10 +291,18 @@ public class MainApplicationFrame extends JFrame {
     private void openLicenseModule() {
         try {
             if (licenseModulePanel == null) {
-                // TODO: Initialize license module
-                licenseModulePanel = createPlaceholderPanel("Módulo de Licencias", 
-                    "Gestión de licencias emitidas");
+                // Initialize license module
+                LicenseMainFrame licenseFrame = new LicenseMainFrame();
+                
+                // Don't call setVisible(true) or setSize() on the frame
+                // Just get its content pane
+                licenseModulePanel = (JPanel) licenseFrame.getContentPane();
+                
+                // Add to CardLayout
                 mainPanel.add(licenseModulePanel, "LICENSES");
+                
+                // Remove any listeners that might interfere with our CardLayout
+                // The frame instance will be garbage collected, we're only using its content pane
             }
             
             // Switch to license module

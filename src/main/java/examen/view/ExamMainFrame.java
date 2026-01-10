@@ -102,9 +102,6 @@ public class ExamMainFrame extends JFrame {
             updateStatus("Listo para crear nuevo examen");
         });
         
-        JButton btnReport = new JButton("Generar Reporte");
-        btnReport.addActionListener(e -> generateReport());
-        
         JButton btnDelete = new JButton("Eliminar Seleccionado");
         btnDelete.addActionListener(e -> {
             Long id = examTable.getSelectedExamId();
@@ -136,8 +133,6 @@ public class ExamMainFrame extends JFrame {
         });
         
         toolBar.add(btnNew);
-        toolBar.addSeparator();
-        toolBar.add(btnReport);
         toolBar.addSeparator();
         toolBar.add(btnDelete);
         
