@@ -130,7 +130,31 @@ public class EntidadDaoImpl implements EntidadDao {
                 resultSet.getString("telefono"),
                 resultSet.getString("email"),
                 resultSet.getString("director"),
-                resultSet.getLong("id_centro")
-        );
+                resultSet.getLong("id_centro"));
+    }
+
+    @Override
+    public EntidadDaoResponseDto buscarPorId(Long id) throws SQLException, EntidadNotFoundException {
+        if (id == null) {
+            throw new EntidadNotFoundException("El ID no puede ser nulo");
+        }
+
+        String sql = "SELECT id_entidad, nombre, tipo_entidad, direccion, telefono, email, director, id_centro " +
+                    "FROM entidad WHERE id_entidad = ?";
+        
+        try (
+            Connection conn = this.getConnection();
+            PreparedStatement statement = conn.prepareStatement(sql)
+        ) {
+            statement.setLong(1, id);
+            
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return mapResult(resultSet);
+                } else {
+                    throw new EntidadNotFoundException("Entidad con ID " + id + " no encontrada");
+                }
+            }
+        }
     }
 }

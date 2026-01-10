@@ -4,18 +4,12 @@ import java.sql.SQLException;
 
 // Importar módulos existentes
 import centro.controller.CentroController;
-import centro.persistence.CentroDao;
 import centro.persistence.CentroDaoImpl;
 import centro.repository.CentroRepository;
 import centro.repository.CentroRepositoryImpl;
 import centro.service.CentroService;
 import centro.service.CentroServiceImpl;
-import centro.view.CentroFrame;
 import centro.view.CentroMainFrame;
-import entidad.controller.EntidadController;
-import entidad.persistence.EntidadDaoImpl;
-import entidad.repository.EntidadRepositoryImpl;
-import entidad.service.EntidadServiceImpl;
 import entidad.view.EntidadMainFrame;
 
 import conductor.view.DriverMainFrame;
@@ -130,11 +124,6 @@ public class MainApplicationFrame extends JFrame {
         
         // File Menu
         JMenu fileMenu = new JMenu("Archivo");
-        
-        // Dashboard/Home item
-        JMenuItem homeItem = new JMenuItem("Inicio");
-        homeItem.addActionListener(e -> showWelcomeScreen());
-        fileMenu.add(homeItem);
         
         fileMenu.addSeparator();
         

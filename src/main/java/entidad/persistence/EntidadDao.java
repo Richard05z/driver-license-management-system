@@ -19,4 +19,6 @@ public interface EntidadDao {
     void eliminar(Long id) throws SQLException, EntidadNotFoundException;
 
     boolean existePorId(Long id) throws SQLException;
+
+    EntidadDaoResponseDto buscarPorId(Long id) throws SQLException, EntidadNotFoundException;
 }
