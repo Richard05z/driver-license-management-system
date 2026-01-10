@@ -20,7 +20,7 @@ public class DriverTable extends JPanel {
     
     // Interface for selection events
     public interface DriverSelectionListener {
-        void onDriverSelected(Integer driverId);
+        void onDriverSelected(Long driverId);
     }
     
     public DriverTable(DriverController controller) {
@@ -80,7 +80,7 @@ public class DriverTable extends JPanel {
             
             @Override
             public Class<?> getColumnClass(int columnIndex) {
-                if (columnIndex == 0) return Integer.class; // ID column
+                if (columnIndex == 0) return Long.class; // ID column
                 return String.class;
             }
         };
@@ -137,7 +137,7 @@ public class DriverTable extends JPanel {
                 if (e.getClickCount() == 1 && selectionListener != null) {
                     int row = table.getSelectedRow();
                     if (row >= 0) {
-                        Integer driverId = (Integer) tableModel.getValueAt(row, 0);
+                        Long driverId = (Long) tableModel.getValueAt(row, 0);
                         selectionListener.onDriverSelected(driverId);
                     }
                 }
@@ -245,10 +245,10 @@ public class DriverTable extends JPanel {
         return table;
     }
     
-    public Integer getSelectedDriverId() {
+    public Long getSelectedDriverId() {
         int row = table.getSelectedRow();
         if (row >= 0) {
-            return (Integer) tableModel.getValueAt(row, 0);
+            return (Long) tableModel.getValueAt(row, 0);
         }
         return null;
     }
@@ -256,7 +256,7 @@ public class DriverTable extends JPanel {
     public DriverResponseDto getSelectedDriver() {
         int row = table.getSelectedRow();
         if (row >= 0) {
-            Integer driverId = (Integer) tableModel.getValueAt(row, 0);
+            Long driverId = (Long) tableModel.getValueAt(row, 0);
             try {
                 return driverController.getDriverResponseById(driverId);
             } catch (Exception e) {

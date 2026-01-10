@@ -163,7 +163,7 @@ public class DriverForm extends JPanel {
             
             // If there's ID, it's an update
             if (!txtId.getText().isEmpty()) {
-                driver.setId(Integer.parseInt(txtId.getText()));
+                driver.setId(Long.parseLong(txtId.getText()));
                 driverController.updateDriver(driver);
                 JOptionPane.showMessageDialog(this, "Conductor actualizado exitosamente", 
                     "Éxito", JOptionPane.INFORMATION_MESSAGE);
@@ -199,7 +199,7 @@ public class DriverForm extends JPanel {
         
         if (confirm == JOptionPane.YES_OPTION) {
             try {
-                int id = Integer.parseInt(txtId.getText());
+                Long id = Long.parseLong(txtId.getText());
                 driverController.deleteDriver(id);
                 
                 JOptionPane.showMessageDialog(this, "Conductor eliminado exitosamente", 
@@ -268,7 +268,7 @@ public class DriverForm extends JPanel {
         btnDelete.setEnabled(false);
     }
     
-    public void loadDriver(int id) {
+    public void loadDriver(Long id) {
         try {
             DriverResponseDto driverDto = driverController.getDriverResponseById(id);
             if (driverDto != null) {

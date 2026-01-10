@@ -37,14 +37,14 @@ public class DriverDao implements DriverDaoInterface {
     }
 
     @Override
-    public Driver getById(Integer id) throws SQLException, DriverNotFoundException {
+    public Driver getById(Long id) throws SQLException, DriverNotFoundException {
         String sql = "SELECT * FROM conductor WHERE id_conductor = ?";
         
         try (
             Connection conn = this.getConnection();
             PreparedStatement statement = conn.prepareStatement(sql)
         ) {
-            statement.setInt(1, id);
+            statement.setLong(1, id);
             
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
@@ -99,7 +99,7 @@ public class DriverDao implements DriverDaoInterface {
         if (affectedRows > 0) {
             try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
-                    driver.setId(generatedKeys.getInt(1));
+                    driver.setId(generatedKeys.getLong(1));
                     return driver;
                 }
             }
@@ -116,14 +116,14 @@ public class DriverDao implements DriverDaoInterface {
 }
 
     @Override
-    public void delete(Integer id) throws SQLException, DriverNotFoundException {
+    public void delete(Long id) throws SQLException, DriverNotFoundException {
         String sql = "DELETE FROM conductor WHERE id_conductor = ?";
         
         try (
             Connection conn = this.getConnection();
             PreparedStatement statement = conn.prepareStatement(sql)
         ) {
-            statement.setInt(1, id);
+            statement.setLong(1, id);
             
             int affectedRows = statement.executeUpdate();
             
@@ -151,7 +151,7 @@ public class DriverDao implements DriverDaoInterface {
         statement.setString(6, driver.getPhone());
         statement.setString(7, driver.getEmail());
         statement.setString(8, driver.getLicenseStatus());
-        statement.setInt(9, driver.getId());
+        statement.setLong(9, driver.getId());
         
         int affectedRows = statement.executeUpdate();
         
@@ -170,7 +170,7 @@ public class DriverDao implements DriverDaoInterface {
 }
     
     @Override
-    public boolean existsById(Integer id) throws SQLException {
+    public boolean existsById(Long id) throws SQLException {
         if (id == null) return false;
         
         String sql = "SELECT COUNT(*) FROM conductor WHERE id_conductor = ?";
@@ -179,7 +179,7 @@ public class DriverDao implements DriverDaoInterface {
             Connection conn = this.getConnection();
             PreparedStatement statement = conn.prepareStatement(sql)
         ) {
-            statement.setInt(1, id);
+            statement.setLong(1, id);
             
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
@@ -227,7 +227,7 @@ public class DriverDao implements DriverDaoInterface {
         String licenseStatus = resultSet.getString("estado_licencia");
         
         Driver driver = new Driver(firstName, lastName, idDocument, birthDateStr, address, phone, email, licenseStatus);
-        driver.setId(resultSet.getInt("id_conductor"));
+        driver.setId(resultSet.getLong("id_conductor"));
         
         return driver;
     }
