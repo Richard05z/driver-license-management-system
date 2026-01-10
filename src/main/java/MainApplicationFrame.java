@@ -11,7 +11,7 @@ import centro.service.CentroService;
 import centro.service.CentroServiceImpl;
 import centro.view.CentroMainFrame;
 import entidad.view.EntidadMainFrame;
-
+import examen.view.ExamMainFrame;
 import conductor.view.DriverMainFrame;
 
 public class MainApplicationFrame extends JFrame {
@@ -312,9 +312,14 @@ public class MainApplicationFrame extends JFrame {
     private void openExamModule() {
         try {
             if (examModulePanel == null) {
-                // TODO: Initialize exam module
-                examModulePanel = createPlaceholderPanel("Módulo de Exámenes", 
-                    "Gestión de exámenes realizados");
+                // Initialize exam module
+                ExamMainFrame examFrame = new ExamMainFrame();
+                examFrame.setSize(getSize());
+                
+                // IMPORTANTE: No llamar a setVisible(true) aquí
+                // Wrap the frame in a panel - tomar solo el contentPane
+                examModulePanel = new JPanel(new BorderLayout());
+                examModulePanel.add(examFrame.getContentPane(), BorderLayout.CENTER);
                 mainPanel.add(examModulePanel, "EXAMS");
             }
             
