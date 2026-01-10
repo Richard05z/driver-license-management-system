@@ -7,6 +7,10 @@ import centro.mapper.CentroMapper;
 import centro.model.Centro;
 import centro.service.CentroService;
 import centro.utils.Validates;
+import conductor.dto.DriverResponseDto;
+import conductor.exception.DriverNotFoundException;
+import conductor.exception.InvalidDriverDataException;
+import conductor.mapper.DriverMapper;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -42,6 +46,15 @@ public class CentroController {
     public void eliminarCentro(Long id) throws InvalidCentroDataException, SQLException, CentroNotFoundException {
         Validates.validate(id, "El id no puede ser nulo");
         centroService.eliminar(id);
+    }
+
+    public Centro obtenerCentroPorId(Long id) throws SQLException, CentroNotFoundException {
+        return this.centroService.buscarCentroPorId(id);
+    }
+
+    public CentroResponseDto obtenerCentroResponseDto(Long id) throws SQLException, CentroNotFoundException, InvalidCentroDataException {
+        Validates.validate(id, "El id no puede ser nulo");
+        return CentroMapper.toCentroResponseDto(this.centroService.buscarCentroPorId(id));
     }
 
 }

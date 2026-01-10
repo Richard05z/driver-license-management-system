@@ -4,16 +4,19 @@ import java.sql.SQLException;
 
 // Importar módulos existentes
 import centro.controller.CentroController;
+import centro.persistence.CentroDao;
 import centro.persistence.CentroDaoImpl;
+import centro.repository.CentroRepository;
 import centro.repository.CentroRepositoryImpl;
+import centro.service.CentroService;
 import centro.service.CentroServiceImpl;
 import centro.view.CentroFrame;
-
+import centro.view.CentroMainFrame;
 import entidad.controller.EntidadController;
 import entidad.persistence.EntidadDaoImpl;
 import entidad.repository.EntidadRepositoryImpl;
 import entidad.service.EntidadServiceImpl;
-import entidad.view.EntidadView;
+import entidad.view.EntidadMainFrame;
 
 import conductor.view.DriverMainFrame;
 
@@ -200,24 +203,39 @@ public class MainApplicationFrame extends JFrame {
         updateStatusBar("Bienvenido al Sistema de Gestión de Licencias");
     }
     
-    // Module opening methods
     private void openCenterModule() {
         try {
             if (centerModulePanel == null) {
-                // Initialize center module
-                CentroController controller = new CentroController(centroService);
-                CentroFrame centroFrame = new CentroFrame(controller);
-                centroFrame.setSize(getSize());
+                // Initialize center module components
+                CentroDaoImpl centroDao = new CentroDaoImpl();
+                CentroRepository centroRepository = new CentroRepositoryImpl(centroDao);
+                CentroService centroService = new CentroServiceImpl(centroRepository);
+                CentroController centroController = new CentroController(centroService);
                 
-                // Wrap the frame in a panel
+                // Create CentroMainFrame as a panel
+                CentroMainFrame centroMainPanel = new CentroMainFrame(centroController);
+                
+                // Simple wrapper panel
                 centerModulePanel = new JPanel(new BorderLayout());
-                centerModulePanel.add(centroFrame.getContentPane(), BorderLayout.CENTER);
+                centerModulePanel.add(centroMainPanel, BorderLayout.CENTER);
+                
+                // Add to CardLayout
                 mainPanel.add(centerModulePanel, "CENTERS");
             }
             
-            // Switch to center module
+            // Show center module
             cardLayout.show(mainPanel, "CENTERS");
             updateStatusBar("Centros - Gestión de centros administrativos");
+            
+            // Load data when module is opened
+            SwingUtilities.invokeLater(() -> {
+                if (centerModulePanel.getComponentCount() > 0) {
+                    Component comp = centerModulePanel.getComponent(0);
+                    if (comp instanceof CentroMainFrame) {
+                        ((CentroMainFrame) comp).loadData();
+                    }
+                }
+            });
             
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this,
@@ -225,27 +243,24 @@ public class MainApplicationFrame extends JFrame {
                 "Error",
                 JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
+            showWelcomeScreen();
         }
     }
     
     private void openEntityModule() {
         try {
-            if (entityModulePanel == null) {
-                // Initialize entity module
-                EntidadDaoImpl entidadDao = new EntidadDaoImpl();
-                EntidadRepositoryImpl entidadRepository = new EntidadRepositoryImpl(entidadDao);
-                EntidadService entidadService = new EntidadServiceImpl(entidadRepository, centroService);
-                EntidadController entidadController = new EntidadController(entidadService);
-                EntidadView entidadView = new EntidadView(entidadController);
-                
-                // Wrap the view in a panel
-                entityModulePanel = new JPanel(new BorderLayout());
-                entityModulePanel.add(entidadView, BorderLayout.CENTER);
-                mainPanel.add(entityModulePanel, "ENTITIES");
-            }
+            // Limpiar el panel principal
+            mainPanel.removeAll();
             
-            // Switch to entity module
-            cardLayout.show(mainPanel, "ENTITIES");
+            // Crear y agregar el panel de entidades
+            EntidadMainFrame entidadPanel = new EntidadMainFrame();
+            mainPanel.add(entidadPanel, BorderLayout.CENTER);
+            
+            // Actualizar la interfaz
+            mainPanel.revalidate();
+            mainPanel.repaint();
+            
+            // Actualizar barra de estado
             updateStatusBar("Entidades - Gestión de clínicas y autoescuelas");
             
         } catch (Exception e) {
@@ -394,7 +409,7 @@ public class MainApplicationFrame extends JFrame {
     
     private void updateStatusBar(String status) {
         // Update status bar text
-        Container contentPane = getContentPane();
+        /* Container contentPane = getContentPane();
         for (Component comp : contentPane.getComponents()) {
             if (comp instanceof JPanel && comp.getComponentCount() > 0) {
                 Component child = ((JPanel) comp).getComponent(0);
@@ -403,6 +418,6 @@ public class MainApplicationFrame extends JFrame {
                     break;
                 }
             }
-        }
+        } */
     }
 }

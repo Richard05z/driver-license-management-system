@@ -20,7 +20,7 @@ public class CentroDaoImpl implements CentroDao {
 
     @Override
     public List<Centro> listarCentros() throws InvalidCentroDataException, SQLException {
-        String sql = "SELECT * from obtener_fichas_de_centros()";
+        String sql = "SELECT * from centro";
         List<Centro> centros = new ArrayList<>();
         try (
                 Connection conn = this.getConnection();
@@ -169,17 +169,17 @@ public class CentroDaoImpl implements CentroDao {
 
     private Centro mapResult(ResultSet resultSet) throws SQLException {
         return new Centro(
-                resultSet.getLong("id_centro"),
-                resultSet.getString("nombre"),
-                resultSet.getString("codigo"),
-                resultSet.getString("direccion_postal"),
-                resultSet.getString("telefono"),
-                resultSet.getString("email"),
-                resultSet.getString("director_general"),
-                resultSet.getString("jefe_rrhh"),
-                resultSet.getString("jefe_contabilidad"),
-                resultSet.getString("secretario_sindicato"),
-                resultSet.getString("logo")
+            resultSet.getLong("id_centro"),
+            resultSet.getString("nombre"),
+            resultSet.getString("codigo"),
+            resultSet.getString("direccion_postal"),
+            resultSet.getString("telefono"),
+            resultSet.getString("email"),
+            resultSet.getString("director_general"),
+            resultSet.getString("jefe_rrhh"),
+            resultSet.getString("jefe_contabilidad"),
+            resultSet.getString("secretario_sindicato"),
+            resultSet.getString("logo")
         );
     }
 }
