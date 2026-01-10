@@ -17,7 +17,7 @@ public interface ExamDaoInterface {
     
     void delete(Long id) throws SQLException, ExamNotFoundException;
     
-    Exam update(Exam exam) throws ExamNotFoundException, SQLException;
+    Exam update(Exam exam) throws ExamNotFoundException, SQLException, InvalidExamDataException;
     
     boolean existsById(Long id) throws SQLException;
     

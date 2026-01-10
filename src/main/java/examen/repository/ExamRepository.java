@@ -37,7 +37,7 @@ public class ExamRepository implements ExamRepositoryInterface {
     }
 
     @Override
-    public Exam update(Exam exam) throws ExamNotFoundException, SQLException {
+    public Exam update(Exam exam) throws ExamNotFoundException, SQLException, InvalidExamDataException {
         return this.examDao.update(exam);
     }
 
