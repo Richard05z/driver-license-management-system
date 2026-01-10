@@ -30,7 +30,7 @@ public class DriverController {
                 .toList();
     }
 
-    public DriverResponseDto getDriverResponseById(Integer id) throws InvalidDriverDataException, SQLException, DriverNotFoundException {
+    public DriverResponseDto getDriverResponseById(Long id) throws InvalidDriverDataException, SQLException, DriverNotFoundException {
         validateIdNotNull(id);
         return DriverMapper.toDriverResponseDto(this.driverService.getById(id));
     }
@@ -46,11 +46,11 @@ public class DriverController {
         return this.driverService.update(driver);
     }
 
-    public void deleteDriver(Integer id) throws InvalidDriverDataException, SQLException, DriverNotFoundException {
+    public void deleteDriver(Long id) throws InvalidDriverDataException, SQLException, DriverNotFoundException {
         driverService.delete(id);
     }
 
-    public boolean checkDriverExistsById(Integer id) throws SQLException, DriverNotFoundException {
+    public boolean checkDriverExistsById(Long id) throws SQLException, DriverNotFoundException {
         return this.driverService.existsById(id);
     }
 
@@ -64,7 +64,7 @@ public class DriverController {
         }
     }
 
-    private void validateIdNotNull(Integer id) throws InvalidDriverDataException {
+    private void validateIdNotNull(Long id) throws InvalidDriverDataException {
         if (id == null) {
             throw new InvalidDriverDataException("ID cannot be null");
         }

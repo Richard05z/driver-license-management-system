@@ -11,17 +11,17 @@ public interface DriverServiceInterface {
 
     List<Driver> listAllDrivers() throws InvalidDriverDataException, SQLException;
 
-    Driver getById(Integer id) throws SQLException, DriverNotFoundException;
+    Driver getById(Long id) throws SQLException, DriverNotFoundException;
 
     Driver getByIdDocument(String idDocument) throws SQLException, DriverNotFoundException;
 
     Driver save(Driver driver) throws InvalidDriverDataException, SQLException;
 
-    void delete(Integer id) throws SQLException, DriverNotFoundException;
+    void delete(Long id) throws SQLException, DriverNotFoundException;
 
     Driver update(Driver driver) throws DriverNotFoundException, SQLException;
 
-    boolean existsById(Integer id) throws SQLException, DriverNotFoundException;
+    boolean existsById(Long id) throws SQLException, DriverNotFoundException;
 
     boolean existsByIdDocument(String idDocument) throws SQLException;
 

@@ -104,7 +104,7 @@ public class DriverMainFrame extends JFrame {
         
         JButton btnDelete = new JButton("Eliminar Seleccionado");
         btnDelete.addActionListener(e -> {
-            Integer id = driverTable.getSelectedDriverId();
+            Long id = driverTable.getSelectedDriverId();
             if (id != null) {
                 int confirm = JOptionPane.showConfirmDialog(this, 
                     "¿Está seguro de eliminar este conductor?", 
@@ -153,7 +153,7 @@ public class DriverMainFrame extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() == 2) {
-                    Integer id = driverTable.getSelectedDriverId();
+                    Long id = driverTable.getSelectedDriverId();
                     if (id != null) {
                         driverForm.loadDriver(id);
                         updateStatus("Editando conductor ID: " + id);
@@ -165,7 +165,7 @@ public class DriverMainFrame extends JFrame {
         // Simple click to show in status bar
         driverTable.getTable().getSelectionModel().addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting()) {
-                Integer id = driverTable.getSelectedDriverId();
+                Long id = driverTable.getSelectedDriverId();
                 if (id != null) {
                     updateStatus("Conductor seleccionado ID: " + id);
                 }
@@ -234,7 +234,7 @@ public class DriverMainFrame extends JFrame {
         getRootPane().getActionMap().put("delete", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Integer id = driverTable.getSelectedDriverId();
+                Long id = driverTable.getSelectedDriverId();
                 if (id != null) {
                     int confirm = JOptionPane.showConfirmDialog(DriverMainFrame.this, 
                         "¿Está seguro de eliminar este conductor?", 

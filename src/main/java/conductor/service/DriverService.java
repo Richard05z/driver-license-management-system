@@ -23,7 +23,7 @@ public class DriverService implements DriverServiceInterface {
     }
 
     @Override
-    public Driver getById(Integer id) throws SQLException, DriverNotFoundException {
+    public Driver getById(Long id) throws SQLException, DriverNotFoundException {
         return this.driverRepository.getById(id);
     }
 
@@ -39,7 +39,7 @@ public class DriverService implements DriverServiceInterface {
     }
 
     @Override
-    public void delete(Integer id) throws SQLException, DriverNotFoundException {
+    public void delete(Long id) throws SQLException, DriverNotFoundException {
         this.existsById(id);
         this.driverRepository.delete(id);
     }
@@ -51,7 +51,7 @@ public class DriverService implements DriverServiceInterface {
     }
 
     @Override
-    public boolean existsById(Integer id) throws SQLException, DriverNotFoundException {
+    public boolean existsById(Long id) throws SQLException, DriverNotFoundException {
         if (!this.driverRepository.existsById(id)) {
             throw new DriverNotFoundException("El conductor con ID " + id + " no fue encontrado");
         }

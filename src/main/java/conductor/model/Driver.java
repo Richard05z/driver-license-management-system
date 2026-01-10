@@ -7,7 +7,7 @@ import lombok.Data;
 @AllArgsConstructor
 public class Driver {
 
-    private Integer id;
+    private Long id;
     private String firstName;
     private String lastName;
     private String idDocument;

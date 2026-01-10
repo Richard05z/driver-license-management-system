@@ -1,7 +1,7 @@
 package conductor.dto;
 
 public record DriverResponseDto(
-    Integer id,
+    Long id,
     String firstName,
     String lastName,
     String idDocument,

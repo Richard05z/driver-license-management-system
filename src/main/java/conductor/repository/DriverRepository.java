@@ -22,7 +22,7 @@ public class DriverRepository implements DriverRepositoryInterface {
     }
 
     @Override
-    public Driver getById(Integer id) throws SQLException, DriverNotFoundException {
+    public Driver getById(Long id) throws SQLException, DriverNotFoundException {
         return this.driverDao.getById(id);
     }
 
@@ -37,7 +37,7 @@ public class DriverRepository implements DriverRepositoryInterface {
     }
 
     @Override
-    public void delete(Integer id) throws SQLException, DriverNotFoundException {
+    public void delete(Long id) throws SQLException, DriverNotFoundException {
         this.driverDao.delete(id);
     }
 
@@ -47,7 +47,7 @@ public class DriverRepository implements DriverRepositoryInterface {
     }
 
     @Override
-    public boolean existsById(Integer id) throws SQLException {
+    public boolean existsById(Long id) throws SQLException {
         return this.driverDao.existsById(id);
     }
 

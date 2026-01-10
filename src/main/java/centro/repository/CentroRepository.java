@@ -21,4 +21,6 @@ public interface CentroRepository {
     Centro actualizar(Centro centro) throws CentroNotFoundException, SQLException;
 
     boolean existePorId(Long id) throws SQLException;
+
+    Centro obtenerCentroPorId(Long id)throws SQLException, CentroNotFoundException;
 }
