@@ -180,7 +180,7 @@ public class MainApplicationFrame extends JFrame {
         menuBar.add(centersMenu);
         menuBar.add(entitiesMenu);
         menuBar.add(driversMenu);
-        menuBar.add(licensesMenu);
+        // menuBar.add(licensesMenu);
         menuBar.add(examsMenu);
         // menuBar.add(violationsMenu);
         // menuBar.add(reportsMenu);
