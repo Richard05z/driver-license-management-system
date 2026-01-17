@@ -170,10 +170,10 @@ public class MainApplicationFrame extends JFrame {
         violationsMenu.add(manageViolationsItem);
         
         // Reports Menu
-        JMenu reportsMenu = new JMenu("Reportes");
+        /* JMenu reportsMenu = new JMenu("Reportes");
         JMenuItem generateReportsItem = new JMenuItem("Generar Reportes");
         generateReportsItem.addActionListener(e -> openReportModule());
-        reportsMenu.add(generateReportsItem);
+        reportsMenu.add(generateReportsItem); */
         
         // Add all menus to menu bar
         menuBar.add(fileMenu);
@@ -182,8 +182,8 @@ public class MainApplicationFrame extends JFrame {
         menuBar.add(driversMenu);
         menuBar.add(licensesMenu);
         menuBar.add(examsMenu);
-        menuBar.add(violationsMenu);
-        menuBar.add(reportsMenu);
+        // menuBar.add(violationsMenu);
+        // menuBar.add(reportsMenu);
         
         return menuBar;
     }
