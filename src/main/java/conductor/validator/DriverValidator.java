@@ -12,7 +12,7 @@ public class DriverValidator {
     // Regular expressions for validation
     private static final Pattern EMAIL_PATTERN = Pattern.compile("^[A-Za-z0-9+_.-]+@(.+)$");
     private static final Pattern PHONE_PATTERN = Pattern.compile("^\\+?[0-9\\s-]{7,15}$");
-    private static final Pattern ID_DOCUMENT_PATTERN = Pattern.compile("^[0-9]{11}$"); // Assuming 11-digit ID document
+    private static final Pattern ID_DOCUMENT_PATTERN = Pattern.compile("^\\d{11}$"); // 11 dígitos exactos
     
     // License status values from enum
     private static final String[] VALID_LICENSE_STATUS = {"vigente", "vencida", "suspendida", "revocada"};
@@ -65,9 +65,72 @@ public class DriverValidator {
             throw new InvalidDriverDataException("El documento de identidad es obligatorio");
         }
         
-        if (!ID_DOCUMENT_PATTERN.matcher(idDocument.trim()).matches()) {
-            throw new InvalidDriverDataException("El documento de identidad debe tener 11 dígitos numéricos");
+        String cleanedId = idDocument.trim();
+        
+        // Validar formato básico: exactamente 11 dígitos
+        if (!ID_DOCUMENT_PATTERN.matcher(cleanedId).matches()) {
+            throw new InvalidDriverDataException("El documento de identidad debe tener exactamente 11 dígitos numéricos");
         }
+        
+        // Validar que la fecha de nacimiento en los primeros 6 dígitos sea válida (formato: AAMMDD)
+        String fechaNacimientoCI = cleanedId.substring(0, 6);
+        if (!esFechaCubanaValida(fechaNacimientoCI)) {
+            throw new InvalidDriverDataException("El documento de identidad contiene una fecha de nacimiento inválida en los primeros 6 dígitos (formato: AAMMDD)");
+        }
+        
+        // Validar que no sea una secuencia inválida (opcional)
+        if (esSecuenciaInvalida(cleanedId)) {
+            throw new InvalidDriverDataException("El documento de identidad no es válido");
+        }
+    }
+
+    private static boolean esFechaCubanaValida(String fechaAAMMDD) {
+        if (fechaAAMMDD.length() != 6) {
+            return false;
+        }
+        
+        try {
+            int año = Integer.parseInt(fechaAAMMDD.substring(0, 2));
+            int mes = Integer.parseInt(fechaAAMMDD.substring(2, 4));
+            int dia = Integer.parseInt(fechaAAMMDD.substring(4, 6));
+            
+            // Validar mes
+            if (mes < 1 || mes > 12) {
+                return false;
+            }
+            
+            // Validar día según mes
+            if (dia < 1 || dia > 31) {
+                return false;
+            }
+            
+            // Meses con 30 días
+            if (mes == 4 || mes == 6 || mes == 9 || mes == 11) {
+                return dia <= 30;
+            }
+            
+            // Febrero
+            if (mes == 2) {
+                // Para validar años bisiestos necesitaríamos el año completo
+                // Como solo tenemos 2 dígitos, asumimos máximo 29 días para febrero
+                return dia <= 29;
+            }
+            
+            // Meses con 31 días
+            return true;
+            
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+    private static boolean esSecuenciaInvalida(String ci) {
+        // Verificar patrones inválidos comunes
+        return ci.matches("0{11}") ||           // Todos ceros
+               ci.matches("1{11}") ||           // Todos unos
+               ci.matches("\\d(\\d)\\1{9}") ||  // Mismo dígito repetido
+               ci.matches("12345678901") ||     // Secuencia consecutiva
+               ci.matches("98765432109");       // Secuencia inversa
     }
 
     private static void validateBirthDate(String birthDateStr) throws InvalidDriverDataException {

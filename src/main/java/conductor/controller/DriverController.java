@@ -43,6 +43,7 @@ public class DriverController {
     public Driver updateDriver(Driver driver) throws InvalidDriverDataException, SQLException, DriverNotFoundException {
         validateDriverNotNull(driver);
         validateIdNotNull(driver.getId());
+        DriverValidator.validate(driver);
         return this.driverService.update(driver);
     }
 
